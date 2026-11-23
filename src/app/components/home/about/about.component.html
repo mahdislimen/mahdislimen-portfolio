@@ -1,0 +1,63 @@
+<section id="about" class="section">
+    <div class="shell">
+        <div class="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+            <!-- Portrait + facts -->
+            <div appReveal class="mx-auto w-full max-w-sm lg:mx-0">
+                <div class="relative">
+                    <div class="absolute -inset-3 rounded-[1.75rem] bg-gradient-to-br from-electric/25 via-violet/15 to-transparent blur-2xl" aria-hidden="true"></div>
+                    <div class="relative overflow-hidden rounded-3xl border border-line-strong bg-night-800">
+                        <picture>
+                            <source [srcset]="personalData.profile" type="image/webp" />
+                            <img [src]="personalData.profileFallback" alt="Portrait of Mahdi Slimen" width="864" height="1184"
+                                loading="lazy" decoding="async" class="aspect-[4/5] w-full object-cover object-top" />
+                        </picture>
+                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-night via-night/70 to-transparent px-5 pb-5 pt-16">
+                            <p class="font-display text-lg font-semibold text-white">{{ personalData.name }}</p>
+                            <p class="font-mono text-xs text-electric-300">{{ personalData.headline }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <dl class="mt-6 grid grid-cols-1 gap-3">
+                    @for (f of facts; track f.label) {
+                        <div class="flex items-start gap-3 rounded-xl border border-line bg-night-800/60 px-4 py-3">
+                            <app-icon [name]="f.icon" [size]="17" class="mt-0.5 text-electric-300" />
+                            <div class="min-w-0">
+                                <dt class="text-[11px] uppercase tracking-[0.14em] text-faint">{{ f.label }}</dt>
+                                <dd class="text-sm text-fg">{{ f.value }}</dd>
+                            </div>
+                        </div>
+                    }
+                </dl>
+            </div>
+
+            <!-- Story -->
+            <div>
+                <div appReveal>
+                    <span class="eyebrow">About me</span>
+                    <h2 class="section-title">
+                        Enterprise engineer, <span class="text-gradient">building with AI.</span>
+                    </h2>
+                </div>
+                <div class="mt-6 space-y-4 text-[16.5px] leading-relaxed text-muted">
+                    @for (p of personalData.about; track $index) {
+                        <p appReveal [revealDelay]="80 + $index * 60">{{ p }}</p>
+                    }
+                </div>
+
+                <ul class="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    @for (f of personalData.focus; track f.title; let i = $index) {
+                        <li appReveal [revealDelay]="i * 80" appSpotlight class="card card-hover overflow-hidden p-5">
+                            <span class="grid h-9 w-9 place-items-center rounded-lg border border-line bg-white/[0.03]"
+                                [class.text-violet-300]="i < 3" [class.text-electric-300]="i === 3">
+                                <app-icon [name]="focusIcons[i]" [size]="18" />
+                            </span>
+                            <h3 class="mt-4 text-base font-semibold">{{ f.title }}</h3>
+                            <p class="mt-1 text-sm text-muted">{{ f.text }}</p>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
