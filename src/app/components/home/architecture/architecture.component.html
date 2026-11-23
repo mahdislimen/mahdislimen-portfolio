@@ -1,0 +1,56 @@
+<section id="architecture" class="section">
+    <span id="rag-architecture" class="absolute top-0" aria-hidden="true"></span>
+    <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-night-900/0 via-night-900/80 to-night-900/0" aria-hidden="true"></div>
+    <div class="shell">
+        <div appReveal class="max-w-3xl">
+            <span class="eyebrow">AI Architecture</span>
+            <h2 class="section-title">How I wire AI into <span class="text-gradient">real systems.</span></h2>
+            <p class="section-lead">
+                These are the patterns behind my work. Select any step to see what it does, or trace a request from start to finish.
+            </p>
+        </div>
+
+        <div appReveal class="mt-10">
+            <div role="tablist" aria-label="Architecture patterns" class="inline-flex flex-wrap gap-1 rounded-xl border border-line bg-night-800/70 p-1" (keydown)="onTabKey($event)">
+                @for (t of tabs; track t.id) {
+                    <button type="button" role="tab" [id]="'tab-' + t.id" [attr.aria-selected]="tab() === t.id"
+                        [attr.aria-controls]="'panel-' + t.id" [attr.tabindex]="tab() === t.id ? 0 : -1" (click)="tab.set(t.id)"
+                        class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200"
+                        [ngClass]="tab() === t.id ? 'bg-gradient-to-r from-electric/25 to-violet/25 text-white shadow-[inset_0_0_0_1px_rgba(139,108,255,.35)]' : 'text-muted hover:text-white'">
+                        <app-icon [name]="t.icon" [size]="16" />{{ t.label }}
+                    </button>
+                }
+            </div>
+
+            <div class="mt-5 rounded-3xl border border-line bg-night-900/70 p-4 sm:p-6 lg:p-8">
+                @if (tab() === 'enterprise') {
+                    <div id="panel-enterprise" role="tabpanel" aria-labelledby="tab-enterprise">
+                        <app-flow-diagram [diagram]="enterprise" />
+                    </div>
+                } @else {
+                    <div id="panel-rag" role="tabpanel" aria-labelledby="tab-rag" class="grid grid-cols-1 gap-6">
+                        <app-flow-diagram [diagram]="ragIngest" />
+                        <div class="flex items-center gap-3 text-xs text-faint" aria-hidden="true">
+                            <span class="h-px flex-1 bg-gradient-to-r from-transparent to-[#F5B454]/50"></span>
+                            <span class="flex items-center gap-1.5 rounded-full border border-line px-3 py-1 font-mono">
+                                <app-icon name="database" [size]="13" class="text-[#F5B454]" /> shared vector store
+                            </span>
+                            <span class="h-px flex-1 bg-gradient-to-l from-transparent to-violet/50"></span>
+                        </div>
+                        <app-flow-diagram [diagram]="ragQuery" />
+                    </div>
+                }
+            </div>
+        </div>
+
+        <ul class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            @for (p of principles; track p.title; let i = $index) {
+                <li appReveal [revealDelay]="i * 70" appSpotlight class="card card-hover overflow-hidden p-5">
+                    <app-icon [name]="p.icon" [size]="20" class="text-electric-300" />
+                    <h3 class="mt-3 text-[15px] font-semibold">{{ p.title }}</h3>
+                    <p class="mt-1 text-sm leading-relaxed text-muted">{{ p.text }}</p>
+                </li>
+            }
+        </ul>
+    </div>
+</section>
