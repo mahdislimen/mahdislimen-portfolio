@@ -1,0 +1,35 @@
+# Netlify build settings for the Angular portfolio.
+[build]
+  command = "npm run build"
+  publish = "dist/portfolio/browser"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# Old CV links (shared before the redesign) point to the current CV.
+[[redirects]]
+  from = "/assets/Mahdi_Slimen_Resume.pdf"
+  to = "/assets/Mahdi_Slimen_CV.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/MahdiSlimen_Resume.pdf"
+  to = "/assets/Mahdi_Slimen_CV.pdf"
+  status = 301
+
+# Single-page app: any unknown path serves index.html (Angular redirects to /).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

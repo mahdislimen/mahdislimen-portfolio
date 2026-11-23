@@ -1,0 +1,177 @@
+<!doctype html>
+<!--
+  CV source for Mahdi Slimen. Print to PDF with headless Chrome:
+    chrome --headless=new --no-pdf-header-footer --print-to-pdf=docs/MahdiSlimen-Cv.pdf docs/cv/cv.html
+  Then copy the PDF to src/assets/Mahdi_Slimen_CV.pdf (the file the website links to).
+  Keep it consistent with src/utils/data/*.ts (the website content).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mahdi Slimen – AI Full-Stack Engineer – CV</title>
+<meta name="author" content="Mahdi Slimen">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 11mm 13mm 10mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { margin: 0; font-family: Inter, Arial, Helvetica, sans-serif; font-size: 9.1pt; line-height: 1.36; color: #1B2333; }
+  a { color: inherit; text-decoration: none; }
+
+  header { text-align: center; padding-bottom: 7pt; border-bottom: 1.6pt solid #2B59C3; }
+  h1 { margin: 0; font-size: 20pt; letter-spacing: .06em; font-weight: 700; color: #0F1B33; }
+  .headline { margin-top: 2pt; font-size: 10.6pt; font-weight: 600; color: #2B59C3; }
+  .contact { margin-top: 4pt; font-size: 8.7pt; color: #3D4759; }
+  .contact span + span::before { content: "|"; margin: 0 6pt; color: #A4ADBD; }
+  .status { margin-top: 2pt; font-size: 8.7pt; font-weight: 600; color: #0F1B33; }
+
+  h2 { break-after: avoid; margin: 8.5pt 0 3.5pt; padding-bottom: 2pt; font-size: 9.6pt; letter-spacing: .12em; text-transform: uppercase; color: #2B59C3; border-bottom: .6pt solid #C9D3E6; }
+  p { margin: 0; }
+  ul { margin: 2pt 0 0; padding-left: 12pt; }
+  li { margin: 1.1pt 0; }
+  li::marker { color: #2B59C3; }
+
+  .job { margin-top: 5.5pt; }
+  .job-head, .company, .sub { break-after: avoid; }
+  .job li { break-inside: avoid; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8pt; }
+  .role { font-weight: 700; font-size: 9.9pt; color: #0F1B33; }
+  .dates { font-size: 8.7pt; font-weight: 600; color: #3D4759; white-space: nowrap; }
+  .company { font-weight: 600; color: #2B59C3; }
+  .company .loc { font-weight: 400; color: #5A6478; }
+  .sub { margin-top: 3pt; font-size: 8.3pt; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #6A4BD1; }
+  .sub.core { color: #3D4759; }
+  .tech { margin-top: 2.5pt; font-size: 8.5pt; color: #3D4759; }
+  .tech b { color: #0F1B33; }
+
+  .skills { display: grid; grid-template-columns: 34mm 1fr; gap: 1.6pt 8pt; }
+  .skills dt { font-weight: 700; color: #0F1B33; }
+  .skills dd { margin: 0; }
+  .edu { display: flex; justify-content: space-between; gap: 8pt; margin-top: 2.5pt; }
+  .edu b { color: #0F1B33; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>MAHDI SLIMEN</h1>
+  <div class="headline">AI Full-Stack Engineer &nbsp;|&nbsp; LLM &amp; RAG Engineer &nbsp;|&nbsp; AI Integration Specialist</div>
+  <div class="contact">
+    <span>Business Bay, Dubai, UAE</span><span>+971 50 545 1910</span><span><a href="mailto:mahdislimen14@gmail.com">mahdislimen14@gmail.com</a></span>
+  </div>
+  <div class="contact">
+    <span><a href="https://www.linkedin.com/in/slimen-mahdi/">linkedin.com/in/slimen-mahdi</a></span><span><a href="https://github.com/mahdislimen">github.com/mahdislimen</a></span><span><a href="https://mahdi-slimen.netlify.app/">mahdi-slimen.netlify.app</a></span>
+  </div>
+  <div class="status">UAE Resident Visa &nbsp;|&nbsp; Available immediately</div>
+</header>
+
+<h2>Professional Summary</h2>
+<p>
+  AI Full-Stack Engineer with 4+ years in IT, including nearly 3 years of enterprise backend development with Java 17, Spring Boot and
+  event-driven microservices for banking, financial and industrial clients. I integrate LLMs into existing enterprise applications, build RAG
+  systems and knowledge assistants, and orchestrate agentic workflows with LangGraph and MCP that act on real business tools. Business-critical
+  logic stays in deterministic, tested services, and everything ships with Docker, Kubernetes, Microsoft Azure and CI/CD.
+</p>
+
+<h2>Core Expertise</h2>
+<ul>
+  <li><b>LLM Engineering:</b> Anthropic Claude API, Azure OpenAI, Ollama, prompt engineering, structured outputs, tool calling, LLM integration</li>
+  <li><b>RAG Engineering:</b> LangChain, embeddings, document processing, chunking strategies, semantic search, pgvector, grounded responses</li>
+  <li><b>Agentic AI:</b> AI agents, LangGraph orchestration, MCP (Model Context Protocol), multi-step workflows, business process automation; LangSmith tracing and evaluation</li>
+  <li><b>Backend &amp; Cloud:</b> Python, FastAPI, Java 17, Spring Boot, Spring WebFlux, microservices, Apache Kafka, Docker, Kubernetes, Microsoft Azure, CI/CD</li>
+</ul>
+
+<h2>Professional Experience</h2>
+
+<div class="job">
+  <div class="job-head"><span class="role">Technical Consultant – Java JEE / Financial ERP</span><span class="dates">Dec 2024 – Jun 2026</span></div>
+  <div class="company">UniQ Soft Technology <span class="loc">· Tunis, Tunisia</span></div>
+  <div class="sub">AI integration</div>
+  <ul>
+    <li>Integrated AI agents and an AI chatbot into an enterprise financial ERP used by banking and financial-sector clients.</li>
+    <li>Designed agent orchestration with LangGraph and connected the agents to ERP business tools through MCP (Model Context Protocol).</li>
+    <li>Built a RAG system with LangChain to retrieve relevant information from ERP data and business documents; traced and debugged agent runs with LangSmith.</li>
+    <li>Integrated LLM capabilities into enterprise business workflows and automated financial and accounting processes.</li>
+  </ul>
+  <div class="sub core">Backend &amp; platform</div>
+  <ul>
+    <li>Developed financial ERP modules (GL, AP, AR, Fixed Assets) and REST APIs with Java 17, Spring Boot, Spring WebFlux / Project Reactor and Hibernate/JPA.</li>
+    <li>Built microservices with Spring Cloud and Apache Kafka (event-driven, SAGA pattern); secured APIs with OAuth 2.0 / OIDC, including banking integration with Temenos T24.</li>
+    <li>Owned backend services from architecture to production: Docker, Kubernetes and JBoss/WildFly on Microsoft Azure, with CI/CD through GitHub Actions, Jenkins and Maven.</li>
+    <li>Led a framework and version migration of ERP modules; designed schemas and optimized SQL on MySQL and SQL Server; tested with JUnit and Postman.</li>
+  </ul>
+  <div class="tech"><b>Technologies:</b> LangChain, LangGraph, LangSmith, MCP, RAG, LLM APIs, AI Agents, Java 17, Spring Boot, Spring WebFlux, Spring Cloud, Apache Kafka, OAuth 2.0 / OIDC, Hibernate/JPA, MySQL, SQL Server, Docker, Kubernetes, Microsoft Azure, Jenkins, GitHub Actions</div>
+</div>
+
+<div class="job">
+  <div class="job-head"><span class="role">Full Stack Java Developer</span><span class="dates">Feb 2024 – Jul 2024</span></div>
+  <div class="company">HUBER+SUHNER <span class="loc">· Sousse, Tunisia</span></div>
+  <ul>
+    <li>Built a full-stack Quality Defect Management &amp; Analytics Platform to track production defects and PPM indicators.</li>
+    <li>Added defect-sheet scanning that parses defect data automatically, removing the need for manual entry through forms.</li>
+    <li>Integrated an AI chatbot that analyses defects in the production unit, and a recommendation system that suggests actions to reduce defects.</li>
+    <li>Designed Angular dashboards with ApexCharts showing production data and KPIs.</li>
+    <li>Developed Spring Boot REST APIs with MySQL, secured with Spring Security, JWT and role-based access control; tested with JUnit, Swagger and Postman.</li>
+    <li>Containerized the applications with Docker and deployed them on Microsoft Azure with Kubernetes through a CI/CD pipeline.</li>
+  </ul>
+  <div class="tech"><b>Technologies:</b> Java, Spring Boot, Spring Security, Angular, ApexCharts, MySQL, AI chatbot, recommendation system, document parsing, Docker, Kubernetes, Microsoft Azure, CI/CD</div>
+</div>
+
+<div class="job">
+  <div class="job-head"><span class="role">Web Developer – Java / Angular</span><span class="dates">Jun 2023 – Oct 2023</span></div>
+  <div class="company">INOVTECH ENGINEERING <span class="loc">· Sousse, Tunisia</span></div>
+  <ul>
+    <li>Delivered a client project to production: a platform that collects and visualizes real-time industrial machine data.</li>
+    <li>Developed Spring Boot APIs to collect, process and transmit machine data over MQTT, secured with HTTPS and JWT; built the Angular interface with Chart.js.</li>
+  </ul>
+</div>
+
+<div class="job">
+  <div class="job-head"><span class="role">IT Support Technician</span><span class="dates">Aug 2021 – Jan 2023</span></div>
+  <div class="company">Sartex Groupe <span class="loc">· Ksar Hellal, Tunisia</span></div>
+  <ul>
+    <li>Provided first-level IT support, maintained systems, and managed backups and software updates.</li>
+  </ul>
+</div>
+
+<h2>Selected Projects</h2>
+
+<div class="job">
+  <div class="job-head"><span class="role">AI-Powered Accounting Management Platform</span><span class="dates">Jun 2026 – Present</span></div>
+  <div class="company">Independent Product <span class="loc">· In Development</span></div>
+  <ul>
+    <li>Multi-tenant SaaS accounting platform with users, roles and permissions, covering GL, AP, AR and core financial workflows.</li>
+    <li>Hybrid architecture: AI agents (Anthropic Claude API, Ollama) handle natural language, reasoning and orchestration in async Python / FastAPI services, while all financial calculations stay in deterministic Java / Spring Boot services exposed as tools.</li>
+    <li>Tool calling and structured outputs connect agents to the ledger; PostgreSQL persistence, Angular frontend, Docker and GitHub Actions delivery.</li>
+  </ul>
+</div>
+
+<div class="job">
+  <div class="job-head"><span class="role">DocChat – RAG Knowledge Assistant</span><span class="dates">Independent Project</span></div>
+  <ul>
+    <li>Document-based assistant that answers questions from a custom knowledge base: LangChain loading and chunking, Azure OpenAI embeddings stored in PostgreSQL with pgvector, semantic retrieval and context injection for grounded answers.</li>
+  </ul>
+</div>
+
+<h2>Technical Skills</h2>
+<dl class="skills">
+  <dt>AI &amp; LLM</dt><dd>LangChain, LangGraph, LangSmith, MCP, RAG, AI agents, Anthropic Claude API, Azure OpenAI, Ollama, embeddings, pgvector, prompt engineering, structured outputs, tool calling</dd>
+  <dt>Languages</dt><dd>Java 17, Python, TypeScript, JavaScript, SQL</dd>
+  <dt>Backend</dt><dd>Spring Boot, Spring WebFlux, Project Reactor, Spring Cloud, Spring Data, Hibernate/JPA, Java EE, FastAPI, REST APIs, microservices, Apache Kafka, SAGA pattern</dd>
+  <dt>Security</dt><dd>OAuth 2.0 / OIDC, Spring Security, JWT, role-based access control</dd>
+  <dt>Cloud &amp; DevOps</dt><dd>Docker, Kubernetes, Microsoft Azure, GitHub Actions, Jenkins, Maven, CI/CD, JBoss/WildFly, Linux</dd>
+  <dt>Databases</dt><dd>PostgreSQL (pgvector), MySQL, SQL Server, Oracle; schema design, indexing, query optimization</dd>
+  <dt>Frontend</dt><dd>Angular, TypeScript, HTML5, CSS3, ApexCharts, Chart.js; React (basic)</dd>
+  <dt>Testing &amp; Tools</dt><dd>JUnit, Postman, Swagger/OpenAPI; Git, GitHub, GitLab, Claude Code, IntelliJ IDEA, VS Code, Agile/Scrum</dd>
+</dl>
+
+<h2>Education</h2>
+<div class="edu"><span><b>Engineering Degree in Software Engineering</b> – International Multidisciplinary School of Sousse, Tunisia</span><span class="dates">2022 – 2024</span></div>
+<div class="edu"><span><b>Applied Bachelor's Degree in Electromechanics</b> – Higher Institute of Applied Sciences and Technology of Sousse, Tunisia</span><span class="dates">2018 – 2022</span></div>
+<div class="edu"><span><b>Baccalaureate in Technology</b> – Lycée Cité Riadh 2, Ksar Hellal, Tunisia</span><span class="dates">2018</span></div>
+
+<h2>Languages</h2>
+<p>Arabic: Native &nbsp;|&nbsp; English: Fluent &nbsp;|&nbsp; French: Fluent</p>
+
+</body>
+</html>
