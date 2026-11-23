@@ -1,0 +1,40 @@
+<section id="expertise" class="section">
+    <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-full bg-gradient-to-b from-night-900/0 via-night-900/80 to-night-900/0" aria-hidden="true"></div>
+    <div class="shell">
+        <div appReveal class="max-w-3xl">
+            <span class="eyebrow">AI Engineering Expertise</span>
+            <h2 class="section-title">From model call to <span class="text-gradient">production system.</span></h2>
+            <p class="section-lead">
+                AI capabilities on top of solid backend, infrastructure and data engineering. The four AI disciplines come first,
+                followed by the engineering foundation that gets them to production.
+            </p>
+        </div>
+
+        <ul class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-12">
+            @for (g of groups; track g.id; let i = $index) {
+                <li appReveal [revealDelay]="(i % 4) * 70" appSpotlight
+                    class="card card-hover group flex flex-col overflow-hidden p-6" [ngClass]="span[g.id]">
+                    @if (g.ai) {
+                        <span class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet/70 to-transparent" aria-hidden="true"></span>
+                    }
+                    <div class="flex items-start justify-between gap-3">
+                        <span class="grid h-11 w-11 place-items-center rounded-xl border"
+                            [ngClass]="g.ai ? 'border-violet/30 bg-violet-soft text-violet-300' : 'border-line bg-white/[0.03] text-electric-300'">
+                            <app-icon [name]="g.icon" [size]="20" />
+                        </span>
+                        @if (g.ai) {
+                            <span class="rounded-full border border-violet/30 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-violet-300">AI</span>
+                        }
+                    </div>
+                    <h3 class="mt-5 text-lg font-semibold">{{ g.title }}</h3>
+                    <p class="mt-1 text-sm text-muted">{{ g.blurb }}</p>
+                    <ul class="mt-5 flex flex-wrap gap-2" [attr.aria-label]="g.title + ' skills'">
+                        @for (item of g.items; track item) {
+                            <li class="chip" [ngClass]="g.ai ? 'chip-ai' : ''">{{ item }}</li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+</section>

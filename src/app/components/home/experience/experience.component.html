@@ -1,0 +1,140 @@
+<section id="experience" class="section">
+    <div class="shell">
+        <div appReveal class="max-w-3xl">
+            <span class="eyebrow">Professional Experience</span>
+            <h2 class="section-title">From IT support to <span class="text-gradient">enterprise AI integration.</span></h2>
+            <p class="section-lead">Four years of steady progression, with each role building on the one before.</p>
+        </div>
+
+        <!-- Career arc -->
+        <ol appReveal class="relative mt-12 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-6" aria-label="Career progression">
+            <span class="absolute left-0 right-0 top-[11px] hidden h-px bg-gradient-to-r from-line-strong via-electric/50 to-violet md:block" aria-hidden="true"></span>
+            @for (step of arc; track step.stage; let last = $last) {
+                <li class="relative">
+                    <span class="relative z-10 grid h-6 w-6 place-items-center rounded-full border-2"
+                        [ngClass]="last ? 'border-violet bg-violet/30 shadow-[0_0_20px_rgba(139,108,255,.6)]' : 'border-electric/60 bg-night'">
+                        <span class="h-1.5 w-1.5 rounded-full" [ngClass]="last ? 'bg-white' : 'bg-electric'"></span>
+                    </span>
+                    <p class="mt-3 font-mono text-xs text-faint">{{ step.period }}</p>
+                    <p class="mt-1 font-display text-base font-semibold" [ngClass]="last ? 'text-gradient' : 'text-fg'">{{ step.label }}</p>
+                    <p class="text-sm text-muted">{{ step.company }}</p>
+                </li>
+            }
+        </ol>
+
+        <!-- Featured role -->
+        <article appReveal appSpotlight class="card mt-14 overflow-hidden p-6 sm:p-8 lg:p-10">
+            <span class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-electric via-violet to-transparent" aria-hidden="true"></span>
+            <div class="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="rounded-full border border-violet/30 bg-violet-soft px-2.5 py-0.5 font-mono text-[10.5px] uppercase tracking-[0.14em] text-violet-300">AI Integration</span>
+                        <span class="font-mono text-xs text-faint">{{ featured.duration }} · {{ featured.location }}</span>
+                    </div>
+                    <h3 class="mt-3 text-2xl font-semibold sm:text-[1.7rem]">{{ featured.company }}</h3>
+                    <p class="mt-1 text-[15px] text-electric-300">{{ featured.title }}</p>
+                </div>
+            </div>
+            <p class="mt-5 max-w-3xl text-[15.5px] leading-relaxed text-muted">{{ featured.summary }}</p>
+
+            <div class="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10">
+                @for (group of featured.groups; track group.label; let gi = $index) {
+                    <div>
+                        <p class="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em]"
+                            [ngClass]="gi === 0 ? 'text-violet-300' : 'text-signal'">
+                            <app-icon [name]="gi === 0 ? 'agent' : 'service'" [size]="15" />
+                            {{ group.label }}
+                        </p>
+                        <ul class="mt-4 space-y-2.5">
+                            @for (item of group.items; track $index) {
+                                <li class="flex gap-3 text-[14.5px] leading-relaxed text-fg/85">
+                                    <span class="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full" [ngClass]="gi === 0 ? 'bg-violet' : 'bg-signal'"></span>
+                                    {{ item }}
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+
+            <div class="mt-8 flex flex-wrap gap-2 border-t border-line pt-6">
+                @for (t of featured.aiTech; track t) { <span class="chip chip-ai">{{ t }}</span> }
+                @for (t of featured.tech; track t) { <span class="chip">{{ t }}</span> }
+            </div>
+        </article>
+
+        <!-- Recent enterprise role -->
+        @for (job of recent; track job.id) {
+            <article appReveal appSpotlight class="card mt-5 overflow-hidden p-6 sm:p-8">
+                <div class="grid grid-cols-1 gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
+                    <div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="rounded-full border border-electric/30 bg-electric-soft px-2.5 py-0.5 font-mono text-[10.5px] uppercase tracking-[0.14em] text-electric-300">Industrial · Full stack · AI</span>
+                            <span class="font-mono text-xs text-faint">{{ job.duration }}</span>
+                        </div>
+                        <h3 class="mt-3 text-xl font-semibold sm:text-2xl">{{ job.company }}</h3>
+                        <p class="mt-1 text-[15px] text-electric-300">{{ job.title }}</p>
+                        <p class="mt-1 text-sm text-faint">{{ job.location }}</p>
+                        <p class="mt-4 text-[15px] leading-relaxed text-muted">{{ job.summary }}</p>
+                    </div>
+                    <div>
+                        <ul class="space-y-2.5">
+                            @for (h of job.highlights; track $index) {
+                                <li class="flex gap-3 text-[14.5px] leading-relaxed text-fg/85">
+                                    <span class="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-electric"></span>
+                                    {{ h }}
+                                </li>
+                            }
+                        </ul>
+                        @if (job.aiHighlights?.length) {
+                            <p class="mt-5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-violet-300">
+                                <app-icon name="agent" [size]="15" /> AI features
+                            </p>
+                            <ul class="mt-3 space-y-2.5">
+                                @for (h of job.aiHighlights; track $index) {
+                                    <li class="flex gap-3 text-[14.5px] leading-relaxed text-fg/85">
+                                        <span class="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-violet"></span>
+                                        {{ h }}
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        <div class="mt-6 flex flex-wrap gap-2">
+                            @for (t of job.aiTech; track t) { <span class="chip chip-ai">{{ t }}</span> }
+                            @for (t of job.tech; track t) { <span class="chip">{{ t }}</span> }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        }
+
+        <!-- Earlier roles, kept concise -->
+        <div class="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
+            @for (job of earlier; track job.id; let i = $index) {
+                <article appReveal [revealDelay]="i * 80" class="card card-hover p-6">
+                    <div class="flex items-center justify-between gap-3">
+                        <span class="font-mono text-xs text-faint">{{ job.duration }}</span>
+                        <span class="font-mono text-[10.5px] uppercase tracking-[0.14em] text-faint">{{ job.location }}</span>
+                    </div>
+                    <h3 class="mt-3 text-lg font-semibold">{{ job.company }}</h3>
+                    <p class="text-sm text-electric-300">{{ job.title }}</p>
+                    <p class="mt-3 text-sm leading-relaxed text-muted">{{ job.summary }}</p>
+                    @if (job.highlights.length) {
+                        <ul class="mt-3 space-y-1.5">
+                            @for (h of job.highlights; track $index) {
+                                <li class="flex gap-2.5 text-sm text-fg/80">
+                                    <span class="mt-[8px] h-1 w-1 shrink-0 rounded-full bg-electric"></span>{{ h }}
+                                </li>
+                            }
+                        </ul>
+                    }
+                    @if (job.tech.length) {
+                        <div class="mt-4 flex flex-wrap gap-1.5">
+                            @for (t of job.tech; track t) { <span class="chip">{{ t }}</span> }
+                        </div>
+                    }
+                </article>
+            }
+        </div>
+    </div>
+</section>
