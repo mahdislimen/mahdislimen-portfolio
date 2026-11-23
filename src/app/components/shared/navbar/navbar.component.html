@@ -1,0 +1,70 @@
+<a href="#main"
+    class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-electric focus:px-4 focus:py-2 focus:text-white">
+    Skip to content
+</a>
+
+<header class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+    [ngClass]="scrolled() || menuOpen() ? 'border-b border-line bg-night/75 backdrop-blur-xl' : 'border-b border-transparent'">
+    <nav class="shell flex h-16 items-center justify-between gap-4" aria-label="Primary">
+        <a href="#home" (click)="closeMenu()" class="group flex items-center gap-2.5" aria-label="Mahdi Slimen, back to top">
+            <span class="relative grid h-9 w-9 place-items-center rounded-xl border border-line-strong bg-night-800 font-display text-sm font-bold text-white transition-colors group-hover:border-electric/60">
+                <span class="text-gradient">MS</span>
+            </span>
+            <span class="hidden flex-col leading-none sm:flex">
+                <span class="font-display text-[15px] font-semibold text-white">Mahdi Slimen</span>
+                <span class="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-faint">AI Full-Stack Engineer</span>
+            </span>
+        </a>
+
+        <ul class="hidden items-center gap-0.5 lg:flex">
+            @for (link of links; track link.id) {
+                <li>
+                    <a [href]="'#' + link.id"
+                        class="relative block rounded-lg px-3 py-2 text-[13.5px] font-medium transition-colors"
+                        [ngClass]="activeId() === link.id ? 'text-white' : 'text-muted hover:text-white'"
+                        [attr.aria-current]="activeId() === link.id ? 'true' : null">
+                        {{ link.label }}
+                        <span class="absolute inset-x-3 -bottom-px h-px origin-left bg-gradient-to-r from-electric to-violet transition-transform duration-300"
+                            [ngClass]="activeId() === link.id ? 'scale-x-100' : 'scale-x-0'"></span>
+                    </a>
+                </li>
+            }
+        </ul>
+
+        <div class="flex items-center gap-2">
+            <a [href]="personalData.resume" download="Mahdi_Slimen_CV.pdf"
+                class="hidden items-center gap-1.5 rounded-lg border border-line-strong bg-white/[0.03] px-3.5 py-2 text-[13px] font-semibold text-fg transition-colors hover:border-electric/60 hover:bg-electric-soft sm:inline-flex">
+                <app-icon name="download" [size]="15" />
+                CV
+            </a>
+            <button type="button" class="grid h-10 w-10 place-items-center rounded-lg border border-line-strong text-fg lg:hidden"
+                (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()" aria-controls="mobile-menu"
+                [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'">
+                <app-icon [name]="menuOpen() ? 'close' : 'menu'" [size]="20" />
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="grid overflow-hidden transition-[grid-template-rows] duration-300 lg:hidden"
+        [ngClass]="menuOpen() ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'" [attr.inert]="menuOpen() ? null : ''">
+        <div class="min-h-0">
+            <ul class="shell grid grid-cols-2 gap-1 pb-5 pt-1">
+                @for (link of links; track link.id) {
+                    <li>
+                        <a [href]="'#' + link.id" (click)="closeMenu()"
+                            class="block rounded-lg px-3 py-2.5 text-[15px] font-medium transition-colors"
+                            [ngClass]="activeId() === link.id ? 'bg-electric-soft text-white' : 'text-muted hover:bg-white/[0.04] hover:text-white'">
+                            {{ link.label }}
+                        </a>
+                    </li>
+                }
+                <li class="col-span-2 mt-2">
+                    <a [href]="personalData.resume" download="Mahdi_Slimen_CV.pdf" (click)="closeMenu()" class="btn-primary w-full">
+                        <app-icon name="download" [size]="16" /> Download CV
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>

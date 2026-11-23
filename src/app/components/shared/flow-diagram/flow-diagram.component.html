@@ -1,0 +1,104 @@
+<!-- Connector. Orientation follows the layout: vertical when stacked, horizontal when in a row. -->
+<ng-template #edge let-index="index" let-tone="tone" let-between="between">
+    @let layout = edgeLayout(between);
+    <span class="flex shrink-0 items-center justify-center" [ngClass]="layout.wrap" aria-hidden="true">
+        <svg [ngClass]="layout.v" width="2" height="16" viewBox="0 0 2 16">
+            <line x1="1" y1="0" x2="1" y2="16" [attr.stroke]="edgeColor(index, tone)" stroke-width="1.5"
+                [class.flow-edge]="progress() >= index" stroke-dasharray="3 4" />
+        </svg>
+        <svg [ngClass]="layout.h" width="20" height="2" viewBox="0 0 20 2">
+            <line x1="0" y1="1" x2="20" y2="1" [attr.stroke]="edgeColor(index, tone)" stroke-width="1.5"
+                [class.flow-edge]="progress() >= index" stroke-dasharray="3 4" />
+        </svg>
+    </span>
+</ng-template>
+
+<div class="flex flex-col gap-4">
+    <div class="flex items-center justify-between gap-3">
+        <div class="min-w-0">
+            <p class="font-mono text-[11px] uppercase tracking-[0.16em] text-faint">{{ diagram().title }}</p>
+            @if (diagram().caption) {
+                <p class="mt-1 text-sm text-muted">{{ diagram().caption }}</p>
+            }
+        </div>
+        <button type="button" (click)="trace()" [disabled]="tracing()"
+            class="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-line-strong bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-fg transition-colors hover:border-electric/60 hover:bg-electric-soft disabled:cursor-wait disabled:opacity-60">
+            <app-icon name="play" [size]="12" />
+            {{ tracing() ? 'Tracing…' : 'Trace a request' }}
+        </button>
+    </div>
+
+    <!-- Flow -->
+    <div [ngClass]="compact() ? '' : 'scroll-x -mx-1 overflow-x-auto px-1 pb-1'">
+        <ol class="flex flex-col" [ngClass]="compact() ? 'sm:flex-row sm:items-stretch' : 'lg:min-w-[50rem] lg:flex-row lg:items-stretch'"
+            [attr.aria-label]="diagram().title">
+            @for (seg of segments(); track seg.zoneId + $index; let si = $index) {
+                @if (si > 0) {
+                    <ng-container *ngTemplateOutlet="edge; context: { index: seg.nodes[0].index, tone: seg.tone, between: true }" />
+                }
+                <li class="flex min-w-0 flex-col rounded-xl border border-dashed p-2" [ngClass]="tone[seg.tone].lane"
+                    [style.flex-grow]="compact() ? 1 : seg.nodes.length" [style.flex-basis]="'0'">
+                    @if (seg.label) {
+                        <span class="mb-2 truncate px-1 font-mono text-[10px] uppercase tracking-[0.14em]" [ngClass]="tone[seg.tone].label" [attr.title]="seg.label">{{ seg.label }}</span>
+                    }
+                    <ol class="flex flex-1 flex-col" [ngClass]="compact() ? '' : 'lg:flex-row lg:items-stretch'">
+                        @for (item of seg.nodes; track item.node.id; let ni = $index) {
+                            @if (ni > 0) {
+                                <ng-container *ngTemplateOutlet="edge; context: { index: item.index, tone: seg.tone, between: false }" />
+                            }
+                            <li class="flex min-w-0 lg:flex-1">
+                                <button type="button"
+                                    class="group flex w-full items-center gap-3 rounded-lg border text-left transition-all duration-300"
+                                    [ngClass]="[nodeClasses(item.index, seg.tone), compact() ? 'px-3 py-2' : 'px-3 py-2.5 lg:flex-col lg:justify-center lg:gap-2 lg:px-2 lg:py-3 lg:text-center']"
+                                    [attr.aria-pressed]="active() === item.index"
+                                    (mouseenter)="select(item.index)" (focus)="select(item.index)" (click)="select(item.index)">
+                                    <span class="grid shrink-0 place-items-center rounded-md bg-white/[0.04]"
+                                        [ngClass]="[tone[seg.tone].icon, compact() ? 'h-7 w-7' : 'h-8 w-8']">
+                                        <app-icon [name]="item.node.icon" [size]="compact() ? 15 : 17" />
+                                    </span>
+                                    <span class="min-w-0 flex-1" [ngClass]="compact() ? '' : 'lg:w-full'">
+                                        <span class="block text-[13px] font-semibold leading-tight text-fg">{{ item.node.label }}</span>
+                                        @if (item.node.tech) {
+                                            <span class="block font-mono text-[10.5px] leading-snug text-faint"
+                                                [ngClass]="compact() ? 'truncate' : 'mt-1 break-words'">{{ item.node.tech }}</span>
+                                        }
+                                    </span>
+                                </button>
+                            </li>
+                        }
+                    </ol>
+                </li>
+            }
+        </ol>
+    </div>
+
+    @if (diagram().rail; as rail) {
+        <button type="button" (mouseenter)="select(-2)" (focus)="select(-2)" (click)="select(-2)"
+            [attr.aria-pressed]="active() === -2"
+            class="flex items-center gap-3 rounded-lg border border-dashed px-3 py-2 text-left text-xs transition-colors"
+            [ngClass]="active() === -2 ? 'border-electric/60 bg-electric-soft text-fg' : 'border-line-strong text-muted hover:text-fg'">
+            <app-icon name="observability" [size]="15" class="text-electric-300" />
+            <span class="font-mono uppercase tracking-[0.14em]">{{ rail.label }}</span>
+            <span class="hidden h-px flex-1 bg-gradient-to-r from-electric/40 to-transparent sm:block"></span>
+            <span class="hidden text-faint sm:inline">spans every step</span>
+        </button>
+    }
+
+    <!-- Detail panel -->
+    <div class="min-h-[4.5rem] rounded-xl border border-line bg-night-900/80 px-4 py-3" aria-live="polite">
+        @if (active() === -2 && diagram().rail) {
+            <p class="text-sm font-semibold text-fg">{{ diagram().rail!.label }}</p>
+            <p class="mt-1 text-sm text-muted">{{ diagram().rail!.detail }}</p>
+        } @else {
+            @if (activeNode(); as node) {
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-sm font-semibold text-fg">{{ active() + 1 }}. {{ node.label }}</span>
+                    @if (node.tech) {
+                        <span class="rounded-md bg-white/[0.05] px-1.5 py-0.5 font-mono text-[10.5px]" [ngClass]="tone[activeTone()].icon">{{ node.tech }}</span>
+                    }
+                </div>
+                <p class="mt-1 text-sm leading-relaxed text-muted">{{ node.detail }}</p>
+            }
+        }
+    </div>
+</div>
