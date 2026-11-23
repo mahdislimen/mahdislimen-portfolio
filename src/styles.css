@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Design system — Mahdi Slimen, AI Full-Stack Engineer
+   Dark navy surfaces · electric blue + violet accents · teal reserved for
+   "deterministic / production" semantics in diagrams.
+   ========================================================================== */
+
+:root {
+  --bg: #060A14;
+  --electric: #4C8DFF;
+  --violet: #8B6CFF;
+  --signal: #2DD4BF;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--bg);
+    color: #E7ECF6;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: "Space Grotesk", Inter, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    color: #F3F6FC;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--electric);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: rgba(76, 141, 255, 0.35);
+    color: #fff;
+  }
+}
+
+@layer components {
+  /* Layout shell */
+  .shell { @apply mx-auto w-full max-w-shell px-4 sm:px-6 lg:px-8; }
+  .section { @apply relative py-20 sm:py-24 lg:py-28; }
+
+  /* Eyebrow + headings */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.18em] text-electric-300;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply inline-block h-px w-6 bg-gradient-to-r from-electric to-violet;
+  }
+  .section-title { @apply mt-4 text-3xl font-semibold leading-tight sm:text-4xl lg:text-[2.75rem]; }
+  .section-lead { @apply mt-4 max-w-prose text-base text-muted sm:text-lg; }
+
+  .text-gradient {
+    background: linear-gradient(100deg, #8DB6FF 0%, #4C8DFF 35%, #8B6CFF 75%, #B9A6FF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Cards */
+  .card {
+    @apply relative rounded-2xl border border-line bg-night-800/70 shadow-card backdrop-blur-sm;
+    transition: border-color .3s var(--ease-out), transform .3s var(--ease-out), background-color .3s var(--ease-out);
+  }
+  .card-hover:hover { @apply border-line-strong bg-night-700/70; transform: translateY(-2px); }
+
+  /* Spotlight border that follows the pointer (set --mx / --my from JS) */
+  .spotlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .3s;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(76,141,255,0.10), transparent 45%);
+  }
+  .spotlight:hover::after { opacity: 1; }
+
+  /* Badges */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-night-600/60 px-3 py-1 text-xs font-medium text-fg/90;
+    transition: border-color .2s, background-color .2s, color .2s, transform .2s var(--ease-out);
+  }
+  .chip:hover { @apply border-electric/50 bg-electric-soft text-white; transform: translateY(-1px); }
+  .chip-ai { @apply border-violet/30 bg-violet-soft text-violet-300; }
+  .chip-ai:hover { @apply border-violet/60 bg-violet/20 text-white; }
+
+  .status-pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-line bg-night-800/80 px-3 py-1 text-xs font-medium text-muted;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold;
+    transition: transform .2s var(--ease-out), background-color .2s, border-color .2s, box-shadow .2s, color .2s;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary {
+    @apply btn text-white;
+    background: linear-gradient(135deg, #4C8DFF 0%, #6D7BFF 50%, #8B6CFF 100%);
+    box-shadow: 0 8px 28px -10px rgba(76, 141, 255, 0.65);
+  }
+  .btn-primary:hover { box-shadow: 0 10px 34px -8px rgba(110, 120, 255, 0.8); transform: translateY(-1px); }
+  .btn-ghost { @apply btn border border-line-strong bg-white/[0.03] text-fg hover:border-electric/60 hover:bg-electric-soft; }
+}
+
+/* ==========================================================================
+   Backgrounds
+   ========================================================================== */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(148,163,184,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148,163,184,0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 80%);
+}
+
+.aurora {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: .5;
+  pointer-events: none;
+  animation: aurora-drift 18s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(40px, -30px, 0) scale(1.12); }
+}
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(148,163,184,0.25), transparent);
+}
+
+/* ==========================================================================
+   Scroll reveal (driven by RevealDirective)
+   ========================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  transition-delay: calc(var(--reveal-delay, 0) * 1ms);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Hero: one orchestrated load sequence */
+.hero-in {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  animation: rise-in .9s var(--ease-out) forwards;
+}
+.trace-line {
+  opacity: 0;
+  transform: translate3d(-6px, 0, 0);
+  animation: rise-in .45s var(--ease-out) forwards;
+  animation-delay: calc(var(--i) * 420ms + 700ms);
+}
+@keyframes rise-in { to { opacity: 1; transform: none; } }
+
+/* ==========================================================================
+   Flow diagrams
+   ========================================================================== */
+.flow-edge {
+  stroke-dasharray: 4 6;
+  animation: flow-dash 1.2s linear infinite;
+}
+@keyframes flow-dash { to { stroke-dashoffset: -20; } }
+
+.flow-pulse {
+  animation: flow-pulse 2.4s ease-in-out infinite;
+}
+@keyframes flow-pulse {
+  0%, 100% { opacity: .35; }
+  50% { opacity: 1; }
+}
+
+/* Illustrative dashboard: draw on reveal (static when reveal is disabled) */
+.grow-bar { transform-box: fill-box; transform-origin: bottom; }
+.reveal .draw-line { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.reveal .grow-bar { transform: scaleY(0); }
+.reveal .fade-area { opacity: 0; }
+.reveal.is-visible .draw-line { stroke-dashoffset: 0; transition: stroke-dashoffset 1.6s var(--ease-out) .3s; }
+.reveal.is-visible .grow-bar { transform: none; transition: transform .8s var(--ease-out); }
+.reveal.is-visible .fade-area { opacity: 1; transition: opacity 1s ease 1s; }
+
+.caret-blink { animation: caret 1s steps(1) infinite; }
+
+.branch-pulse { animation: branch-pulse 2.2s ease-in infinite; }
+@keyframes branch-pulse {
+  0% { transform: translateY(-100%); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(300%); opacity: 0; }
+}
+@keyframes caret { 50% { opacity: 0; } }
+
+/* Thin scrollbar for horizontal scrollers */
+.scroll-x { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,.25) transparent; }
+.scroll-x::-webkit-scrollbar { height: 6px; }
+.scroll-x::-webkit-scrollbar-thumb { background: rgba(148,163,184,.25); border-radius: 9999px; }
+
+/* ==========================================================================
+   Reduced motion: keep content, drop movement
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero-in, .trace-line { opacity: 1; transform: none; animation: none; }
+  .aurora, .flow-edge, .flow-pulse, .caret-blink, .branch-pulse { animation: none !important; }
+  *, *::before, *::after { transition-duration: .01ms !important; }
+}
