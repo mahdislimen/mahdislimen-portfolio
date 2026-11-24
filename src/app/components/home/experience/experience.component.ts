@@ -13,7 +13,7 @@ import { RevealDirective, SpotlightDirective } from '@/app/components/shared/dir
 })
 export class ExperienceComponent {
   readonly arc = careerArc;
-  readonly featured = experiences.find(e => e.featured)!;
+  readonly featuredRoles = experiences.filter(e => e.featured);
   readonly recent = experiences.filter(e => !e.featured && e.stage === 'enterprise');
   readonly earlier = experiences.filter(e => e.stage === 'development' || e.stage === 'support');
 }

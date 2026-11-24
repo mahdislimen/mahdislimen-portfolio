@@ -15,6 +15,8 @@ export interface Experience {
     /** Stage of the career arc this role belongs to (drives the timeline). */
     stage: CareerStage;
     featured?: boolean;
+    /** Pill label shown on a featured card (e.g. "AI Integration"). */
+    badge?: string;
     groups?: ExperienceGroup[];
     highlights: string[];
     /** AI-specific achievements, rendered with the violet AI accent. */

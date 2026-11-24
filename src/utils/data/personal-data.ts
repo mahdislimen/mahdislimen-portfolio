@@ -16,7 +16,7 @@ export const personalData = {
   intro:
     'Software engineer with 4+ years in IT and a strong enterprise backend foundation in Java and Spring Boot, now designing, integrating and shipping AI-powered applications: agents, RAG and LLM features wired into real business systems.',
   about: [
-    'I am a software engineer based in Dubai with over four years in IT, including nearly three years building enterprise backend systems with Java, Spring Boot and event-driven microservices for financial and industrial clients.',
+    'I am a software engineer based in Dubai with over 4 years in IT, including nearly 3 years building enterprise backend systems with Java, Spring Boot and event-driven microservices for financial and industrial clients.',
     'Today my focus is AI engineering: integrating LLMs into existing enterprise applications, building RAG systems and knowledge assistants, and orchestrating agentic workflows that call real business tools through MCP.',
     'My background shapes how I build AI. Agents handle language, reasoning and orchestration, while business-critical logic stays in deterministic, tested services. The result is AI that is useful and still auditable, and that can be deployed with Docker, Kubernetes, Azure and CI/CD.',
   ],

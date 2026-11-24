@@ -22,13 +22,16 @@
             }
         </ol>
 
-        <!-- Featured role -->
-        <article appReveal appSpotlight class="card mt-14 overflow-hidden p-6 sm:p-8 lg:p-10">
+        <!-- Featured roles -->
+        @for (featured of featuredRoles; track featured.id; let fi = $index) {
+        <article appReveal appSpotlight class="card overflow-hidden p-6 sm:p-8 lg:p-10" [ngClass]="fi === 0 ? 'mt-14' : 'mt-5'">
             <span class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-electric via-violet to-transparent" aria-hidden="true"></span>
             <div class="flex flex-wrap items-start justify-between gap-4">
                 <div>
                     <div class="flex flex-wrap items-center gap-2">
-                        <span class="rounded-full border border-violet/30 bg-violet-soft px-2.5 py-0.5 font-mono text-[10.5px] uppercase tracking-[0.14em] text-violet-300">AI Integration</span>
+                        @if (featured.badge) {
+                            <span class="rounded-full border border-violet/30 bg-violet-soft px-2.5 py-0.5 font-mono text-[10.5px] uppercase tracking-[0.14em] text-violet-300">{{ featured.badge }}</span>
+                        }
                         <span class="font-mono text-xs text-faint">{{ featured.duration }} · {{ featured.location }}</span>
                     </div>
                     <h3 class="mt-3 text-2xl font-semibold sm:text-[1.7rem]">{{ featured.company }}</h3>
@@ -62,6 +65,7 @@
                 @for (t of featured.tech; track t) { <span class="chip">{{ t }}</span> }
             </div>
         </article>
+        }
 
         <!-- Recent enterprise role -->
         @for (job of recent; track job.id) {

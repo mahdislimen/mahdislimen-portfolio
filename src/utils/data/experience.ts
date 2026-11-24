@@ -11,6 +11,7 @@ export const experiences: Experience[] = [
     location: 'Tunis, Tunisia',
     stage: 'ai',
     featured: true,
+    badge: 'AI Integration',
     summary:
       'Brought AI agents and an AI chatbot into an enterprise financial ERP for banking and financial-sector clients, and owned backend services from architecture to production.',
     groups: [
@@ -46,19 +47,30 @@ export const experiences: Experience[] = [
     duration: 'Feb 2024 – Jul 2024',
     location: 'Sousse, Tunisia',
     stage: 'enterprise',
+    featured: true,
+    badge: 'Industrial · Full stack · AI',
     summary:
       'Built a Quality Defect Management & Analytics Platform for industrial production, then extended it with AI: defect-sheet scanning, a defect-analysis chatbot and defect-reduction recommendations.',
-    highlights: [
-      'Built an industrial application to track production defects and PPM indicators.',
-      'Designed interactive Angular dashboards with ApexCharts for production information and KPIs.',
-      'Developed secure Spring Boot REST APIs with JWT authentication and role-based access control.',
-      'Automated build and deployment through CI/CD on Microsoft Azure.',
+    groups: [
+      {
+        label: 'AI features',
+        items: [
+          'Added defect-sheet scanning that parses defect data automatically, removing the need for manual entry through forms.',
+          'Integrated an AI chatbot that analyses defects in the production unit.',
+          'Built a recommendation system that suggests actions to reduce production defects.',
+        ],
+      },
+      {
+        label: 'Full stack platform',
+        items: [
+          'Built an industrial application to track production defects and PPM indicators.',
+          'Designed interactive Angular dashboards with ApexCharts for production information and KPIs.',
+          'Developed secure Spring Boot REST APIs with JWT authentication and role-based access control.',
+          'Automated build and deployment through CI/CD on Microsoft Azure.',
+        ],
+      },
     ],
-    aiHighlights: [
-      'Added defect-sheet scanning that parses defect data automatically, removing the need for manual entry through forms.',
-      'Integrated an AI chatbot that analyses defects in the production unit.',
-      'Built a recommendation system that suggests actions to reduce production defects.',
-    ],
+    highlights: [],
     aiTech: ['AI Chatbot', 'Recommendation System', 'Document Parsing', 'Agentic AI'],
     tech: ['Java', 'Spring Boot', 'Angular', 'ApexCharts', 'MySQL', 'Docker', 'Kubernetes', 'Microsoft Azure', 'CI/CD'],
   },
